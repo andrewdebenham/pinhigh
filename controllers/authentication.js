@@ -34,6 +34,7 @@ router.post('/sign-up', async (req, res) => {
     // sign the user in and redirect
     req.session.user = {
         username: user.username,
+        _id: user._id,
     }
     res.redirect('/');
 });
@@ -68,7 +69,8 @@ router.post('/sign-in', async (req, res) => {
 
     // add user to session and redirect
     req.session.user = {
-        username: user.username
+        username: user.username,
+        _id: user._id
     }
     res.redirect('/');
 });

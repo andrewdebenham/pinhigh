@@ -7,9 +7,9 @@ const Post = require('../models/post');
 const User = require('../models/user');
 
 // index
-router.get('/', async(req, res) => {
-    const posts = await Post.find({}).populate('owner');
-    res.render('home.ejs', {
+router.get('/', async (req, res) => {
+    const posts = await Post.find({}).populate('author');
+    res.render('posts/feed.ejs', {
         posts: posts,
     });
 });
@@ -24,24 +24,53 @@ router.get('/new', (req, res) => {
 
 // create
 router.post('/', upload.single('image'), async (req, res) => {
-    const imageResult = await cloudinary.uploader.upload(req.file.path);
-    req.body.images = imageResult.secure_url;
-    req.body.cloudinaryId = imageResult.public_id;
+    // const imageResult = await cloudinary.uploader.upload(req.file.path);
+    // req.body.images = imageResult.secure_url;
+    // req.body.cloudinaryId = imageResult.public_id;
 
-    req.body.owner = req.session.user._id;
+    req.body.author = req.session.user._id;
+    console.log(req.body);
     await Post.create(req.body);
-    res.redirect('/');
+    res.redirect('/posts');
 });
 
 
 // edit
-
+router.get('/:id/edit', async (req, res) => {
+    const post = await Post.findById(req.params.id);
+    res.render('posts/edit.ejs', {
+        post: post,
+    });
+});
 
 // update
-
+router.put('/:id', async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+        console.log('Req.Body: ' + req.body)
+        if (post.author.equals(req.session.user._id)) {
+            await post.updateOne(req.body);
+        }
+        res.redirect('/posts');
+    } catch (error) {
+        console.log(error);
+        res.send('error');
+    }
+});
 
 // delete
-
+router.delete('/:id', async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+        if (post.author.equals(req.session.user._id)) {
+            await post.deleteOne();
+        }
+        res.redirect('/posts');
+    } catch (error) {
+        console.log(error);
+        res.send('error');
+    } 
+});
 
 // post like
 

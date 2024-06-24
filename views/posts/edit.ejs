@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %>: Edit Post</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+</head>
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+    <h1>Edit Post</h1>
+    <form action="/posts/<%= post._id %>?_method=PUT" enctype="multipart/form-data" method="post">
+        <label>
+            Caption:
+            <input name="caption" value="<%= post.caption %>" required>
+        </label>
+        <label>
+            Golf Course:
+            <input name="course" value="<%= post.course %>" required>
+        </label>
+        <label>
+            Score:
+            <input type="number" name="score" value="<%= post.score %>" required>
+        </label>
+        <label>
+            Image:
+            <input type="file" name="image">
+        </label>
+        <button>Update Post</button>
+    </form>
+</body>
+</html>
