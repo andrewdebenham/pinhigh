@@ -22,6 +22,12 @@ const postSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    images: [{
+        type: String,
+    }],
+    cloudinaryId: [{
+        type: String,
+    }],
     // scorecard: {
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: 'Scorecard',

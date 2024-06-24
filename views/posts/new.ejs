@@ -9,7 +9,7 @@
 <body>
     <%- include('../partials/_navbar.ejs') %>
     <h1>New Post</h1>
-    <form action="/posts" method="post">
+    <form action="/posts" enctype="multipart/form-data" method="post">
         <label>
             Caption:
             <input name="caption" required>
@@ -21,6 +21,10 @@
         <label>
             Score:
             <input type="number" name="score" required>
+        </label>
+        <label>
+            Image:
+            <input type="file" name="image">
         </label>
         <button>Create Post</button>
     </form>

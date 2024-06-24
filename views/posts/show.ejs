@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>
+        Images
+        <img src="<%= post.images %>"> // to show a single image
+        // or for multiple images
+        <% post.images.forEach(image => { %>
+            <img src="<%= image %>">
+        <% }) %>
+    </p>
+    <p>
+        Add New Image
+        <form action="/posts/<%= post._id %>/images" enctype="multipart/form-data" method="post">
+            <input type="file" name="image">
+            <button>Upload Image</button>
+        </form>
+    </p>
+</body>
+</html>
