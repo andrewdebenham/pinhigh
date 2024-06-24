@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+</head>
+<body>
+    <a href="/">Back to Home</a>
+    <h1>Sign In</h1>
+    <p><%= error %></p>
+    <form action="/auth/sign-in" method="post">
+        <label>
+            Username:
+            <input name="username" required>
+        </label>
+        <label>
+            Password:
+            <input type="password" name="password">
+        </label>
+        <button type="submit">Sign In</button>
+    </form>
+</body>
+</html>
