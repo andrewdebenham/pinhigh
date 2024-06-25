@@ -49,7 +49,6 @@ router.post('/', upload.single('image'), async (req, res) => {
     res.redirect('/posts');
 });
 
-
 // edit
 router.get('/:id/edit', async (req, res) => {
     const post = await Post.findById(req.params.id);
@@ -71,10 +70,12 @@ router.put('/:id', upload.single('image'), async (req, res) => {
         console.log('req.body: ', req.body)
         console.log('req.body.caption: ', req.body.caption)
 
+        req.body.scoreToPar = req.body.score - req.body.par;
+
         if (post.author.equals(req.session.user._id)) {
             await post.updateOne(req.body);
         }
-        res.redirect('/posts/' + req.params.id);
+        res.redirect('/posts');
 
     } catch (error) {
         console.log(error);

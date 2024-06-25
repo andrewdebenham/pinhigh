@@ -64,12 +64,19 @@
 
             <% posts.forEach(post => { %>
             <div class="card mb-5">
-                <div class="card-header d-flex flex-row align-items-center justify-content-between">
-                    <h5><%= post.author.username %> +13.1</h5>
-                    <p><small><%= post.timestamp.toLocaleDateString('en-GB', {weekday: 'long', day: 'numeric', month: 'long'}) %> at 
-                    <%= post.timestamp.toLocaleTimeString('en-GB', {hour: 'numeric', minute: 'numeric', hour12: true}) %></small></p>
+                <div class="card-header d-flex align-items-start justify-content-between">
+                    <div class="d-flex  flex-column">
+                        <h5><%= post.author.username %> +13.1</h5>
+                        <p><small><%= post.timestamp.toLocaleDateString('en-GB', {weekday: 'long', day: 'numeric', month: 'long'}) %> at 
+                        <%= post.timestamp.toLocaleTimeString('en-GB', {hour: 'numeric', minute: 'numeric', hour12: true}) %></small></p>
+                    </div>
+                    <% if (post.author._id.equals(user._id)) { %>
+                        <form action="/posts/<%= post.id %>/edit">
+                            <button class="btn btn-outline-secondary btn-sm">Edit</button>
+                        </form>
+                    <% } %>
                 </div>
-                <div class="card-body">
+                <div class="card-body pb-0">
                     <div class="d-flex flex-row justify-content-between">
                         <h5 class="card-title"><%= post.title %></h5>
                         <h5>
@@ -85,8 +92,26 @@
                         </h5>
                     </div>
                     <p><strong><%= post.course %></strong> | Par <%= post.par %></p>
-                    <p class="card-text"><%= post.description %></p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <p class="card-text border-bottom pb-3"><%= post.description %></p>
+                    <div class="pb-3"></div>
+                    <div class="pb-3"></div>
+                    <div class="pb-3"></div>
+                    <div class="pb-3"></div>
+                    <div class="pb-3"></div>
+                    <div class="pb-3 text-center">Scorecard Coming Soon</div>
+                    <div class="pb-3"></div>
+                    <div class="pb-3"></div>
+                    <div class="pb-3"></div>
+                    <div class="pb-3"></div>
+                    <div class="pb-3 border-bottom"></div>
+                    <div class="d-flex flex-row pt-2 gap-2 align-items-baseline border-bottom">
+                        <h4>👍</h4>
+                        <p><%= post.likedByUsers.length %></p>
+                    </div>
+                    <div class="d-flex flex-row justify-content-evenly p-2">
+                        <button class="btn btn-light">Like</button>
+                        <button class="btn btn-light">Comment</button>
+                    </div>
                 </div>
             </div>
 
