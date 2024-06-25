@@ -61,7 +61,7 @@ router.post('/sign-in', async (req, res) => {
     );
 
     if (!validPassword) {
-        res.render('authentication.ejs', {
+        res.render('authentication/sign-in.ejs', {
             error: 'Invalid Password. Please try again.'
         });
         return;

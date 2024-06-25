@@ -3,23 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title><%= post.author.username %>'s Post</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </head>
 <body>
-    <p>
+    <%- include('../partials/_navbar.ejs') %>
+    <div>
+        <h2><%= post.author.username %></h2>
+        <p><small><%= post.timestamp.toLocaleString() %></small></p>
+        <h4><%= post.caption %></h4>
+        <p><%= post.course %></p>
+        <p>Score: <%= post.score %></p>
+
+        <p>Likes: <%= post.likedByUsers.length %></p>
+        <% if (alreadyLiked) { %>
+        <form action="/posts/<%= post._id %>/like?_method=DELETE" method="post">
+            <button>Unlike</button>
+        </form>
+        <% } else { %>
+        <form action="/posts/<%= post._id %>/like" method="post">
+            <button>Like</button>
+        </form>
+        <% } %>
+        
+        <% if (post.author._id.equals(user._id)) { %>
+        <a href="/posts/<%= post._id %>/edit">Edit Post</a>
+        <form action="/posts/<%= post._id %>?_method=DELETE" method="post">
+            <button>Delete Post</button>
+        </form>
+        <% } %>
+    </div>
+
+    <!-- <p>
         Images
         <img src="<%= post.images %>"> // to show a single image
         // or for multiple images
         <% post.images.forEach(image => { %>
             <img src="<%= image %>">
         <% }) %>
-    </p>
-    <p>
+    </p> -->
+    <!-- <p>
         Add New Image
         <form action="/posts/<%= post._id %>/images" enctype="multipart/form-data" method="post">
             <input type="file" name="image">
             <button>Upload Image</button>
         </form>
-    </p>
+    </p> -->
 </body>
 </html>

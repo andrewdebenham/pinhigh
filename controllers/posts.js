@@ -20,15 +20,30 @@ router.get('/new', (req, res) => {
 });
 
 // show
-
+router.get('/:id', async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id).populate('author');
+        const alreadyLiked = post.likedByUsers.some((userId) => userId.equals(req.session.user._id));
+        res.render('posts/show.ejs', {
+            post: post,
+            alreadyLiked: alreadyLiked,
+        });
+    } catch (error) {
+        console.log(error);
+        res.redirect('/posts');
+    }
+});
 
 // create
 router.post('/', upload.single('image'), async (req, res) => {
-    // const imageResult = await cloudinary.uploader.upload(req.file.path);
-    // req.body.images = imageResult.secure_url;
-    // req.body.cloudinaryId = imageResult.public_id;
+    if (req.file) {
+        const imageResult = await cloudinary.uploader.upload(req.file.path);
+        req.body.images = imageResult.secure_url;
+        req.body.cloudinaryId = imageResult.public_id;
+    }
 
     req.body.author = req.session.user._id;
+    req.body.scoreToPar = req.body.score - req.body.par;
     console.log(req.body);
     await Post.create(req.body);
     res.redirect('/posts');
@@ -44,14 +59,23 @@ router.get('/:id/edit', async (req, res) => {
 });
 
 // update
-router.put('/:id', async (req, res) => {
+router.put('/:id', upload.single('image'), async (req, res) => {
     try {
         const post = await Post.findById(req.params.id);
-        console.log('Req.Body: ' + req.body)
+        if (req.file) {
+            const imageResult = await cloudinary.uploader.upload(req.file.path);
+            req.body.images = imageResult.secure_url;
+            req.body.cloudinaryId = imageResult.public_id;
+        }
+
+        console.log('req.body: ', req.body)
+        console.log('req.body.caption: ', req.body.caption)
+
         if (post.author.equals(req.session.user._id)) {
             await post.updateOne(req.body);
         }
-        res.redirect('/posts');
+        res.redirect('/posts/' + req.params.id);
+
     } catch (error) {
         console.log(error);
         res.send('error');
@@ -73,7 +97,28 @@ router.delete('/:id', async (req, res) => {
 });
 
 // post like
+router.post('/:id/like', async (req, res) => {
+    try {
+        await Post.findByIdAndUpdate(req.params.id, {
+            $push: {likedByUsers: req.session.user._id},
+        });
+    } catch (error) {
+        console.log(error);
+    }
+    res.redirect('/posts/' + req.params.id);
+});
 
+// delete like
+router.delete('/:id/like', async (req, res) => {
+    try {
+        await Post.findByIdAndUpdate(req.params.id, {
+            $pull: {likedByUsers: req.session.user._id},
+        });
+    } catch (error) {
+        console.log(error);
+    }
+    res.redirect('/posts/' + req.params.id);
+});
 
 // post comment
 

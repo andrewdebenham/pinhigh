@@ -1,9 +1,12 @@
 const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
-    caption: {
+    title: {
         type: String,
         required: true,
+    },
+    description: {
+        type: String,
     },
     timestamp: {
         type: Date,
@@ -14,6 +17,10 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    par: {
+        type: Number,
+        required: true,
+    },
     author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -22,6 +29,9 @@ const postSchema = new mongoose.Schema({
     score: {
         type: Number,
         required: true,
+    },
+    scoreToPar: {
+        type: Number,
     },
     images: [{
         type: String,
