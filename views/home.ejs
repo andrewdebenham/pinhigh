@@ -10,35 +10,34 @@
 <body>
     <%- include('./partials/_navbar.ejs') %>
 
-    <div class="container w-50 d-flex flex-column align-items-center justify-content-center position-absolute top-50 start-50 translate-middle">
-        <% if (user) { %>
-        <h1><%= title %></h1>
-        <h2>Welcome, <%= user.username %></h2>
-        <% } else { %>
-        <h1>Welcome to <%= title %></h1>
+    <% if (user) { %>
+        <h2 class="z-2 position-absolute start-50 translate-middle pt-5 mt-1">Welcome, <%= user.username %></h2>
+    <% } else { %>
+        <div class="container w-50 d-flex flex-column align-items-center justify-content-center position-absolute top-50 start-50 translate-middle">
+            <h1>Welcome to <%= title %></h1>
 
-        <form action="/auth/sign-in" method="post" class="border-bottom mb-3">
-            <div class="mb-3">
-                <label class="form-label">
-                    Username:
-                    <input name="username" class ="form-control" required>
-                </label>
-                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">
-                    Password:
-                    <input type="password" name="password" class="form-control">
-                </label>
-            </div>
-            <button type="submit" class="btn btn-primary mb-3">Sign In</button>
-        </form>
-        <form action="/auth/sign-up" method="get" class="mb-3">
-            <button class="btn btn-lg btn-success mb-3 w-100">Sign Up</button>
-        </form>
+            <form action="/auth/sign-in" method="post" class="border-bottom mb-3">
+                <div class="mb-3">
+                    <label class="form-label">
+                        Username:
+                        <input name="username" class ="form-control" required>
+                    </label>
+                    <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">
+                        Password:
+                        <input type="password" name="password" class="form-control">
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary mb-3">Sign In</button>
+            </form>
+            <form action="/auth/sign-up" method="get" class="mb-3">
+                <button class="btn btn-lg btn-success mb-3 w-100">Sign Up</button>
+            </form>
+        </div>
 
-        <% } %>
-
-    </div>
+        
+    <% } %>
 </body>
 </html>

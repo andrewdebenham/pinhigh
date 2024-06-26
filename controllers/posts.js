@@ -36,16 +36,21 @@ router.get('/:id', async (req, res) => {
 
 // create
 router.post('/', upload.single('image'), async (req, res) => {
-    if (req.file) {
-        const imageResult = await cloudinary.uploader.upload(req.file.path);
-        req.body.images = imageResult.secure_url;
-        req.body.cloudinaryId = imageResult.public_id;
+    try {
+        if (req.file) {
+            const imageResult = await cloudinary.uploader.upload(req.file.path);
+            req.body.images = imageResult.secure_url;
+            req.body.cloudinaryId = imageResult.public_id;
+        }
+        
+        req.body.author = req.session.user._id;
+        req.body.scoreToPar = req.body.score - req.body.par;
+        console.log(req.body);
+        await Post.create(req.body);
+    } catch (error) {
+        console.log(error);
     }
 
-    req.body.author = req.session.user._id;
-    req.body.scoreToPar = req.body.score - req.body.par;
-    console.log(req.body);
-    await Post.create(req.body);
     res.redirect('/posts');
 });
 
