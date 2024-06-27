@@ -16,13 +16,14 @@
             <!-- 1 of 3 -->
           </div>
           <div class="col-6">
-            <div class="pb-5"></div>
-            <h1 class="mt-3">Your Feed</h1>
-
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                New Post
-            </button>
+            <div class="d-flex flex-row justify-content-between mt-5 pt-3">
+                <h1 class="mt-3">Your Feed</h1>
+    
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary mb-3 mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    New Post
+                </button>
+            </div>
             
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -149,26 +150,29 @@
                     <img src="<%= post.images %>" class="object-fit-contain border rounded img-fluid">
 
 
-                    <div class="d-flex flex-row pt-2 gap-2 align-items-baseline border-bottom justify-content-between">
+                    <div class="d-flex flex-row pt-2 gap-2 align-items-baseline justify-content-between">
                         <div class="d-flex flex-row gap-2 align-items-baseline">
                             <h4>👍</h4>
                             <p><%= post.likedByUsers.length %></p>
                         </div>
-                        <form action="/posts/<%= post._id %>">
-                            <button class="btn btn-outline-primary">View Post to like & comment</button>
-                        </form>
+                        <p class="d-inline-flex gap-1">
+                            <a data-bs-toggle="collapse" href="#<%= post._id %>" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                <small><%= post.comments.length %> <%= post.comments.length === 1 ? 'Comment' : 'Comments' %></small>
+                            </a>
+                        </p>
+                        <a href="/posts/<%= post._id %>"><small>View Post to like & comment</small></a>
                     </div>
-                    <div class="d-flex flex-row justify-content-evenly p-2">
-                        <% if (post.likedByUsers.some((userId) => userId.equals(user._id))) { %>
-                            <form action="/posts/<%= post._id %>/like?_method=DELETE" method="post">
-                                <button class="btn btn-light">Unlike</button>
-                            </form>
-                        <% } else { %>
-                        <form action="/posts/<%= post._id %>/like" method="post">
-                            <button class="btn btn-light">Like</button>
-                        </form>
-                        <% } %>
-                        <button class="btn btn-light">Comment</button>
+                    <div class="collapse" id="<%= post._id %>">
+                        <div class="d-flex flex-column">
+                            <% post.comments.forEach(comment => { %>
+                                <div class="card text-bg-light rounded-5 d-inline-block w-auto mb-2 align-self-start flex-shrink-0">
+                                    <div class="card-body pt-1 pb-1">
+                                        <p class="mb-1 mt-1"><small><strong><%= comment.username %></strong></small></p>
+                                        <p class="mb-2"><%= comment.text %></p>
+                                    </div>
+                                </div>
+                            <% }) %>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -179,7 +183,7 @@
             <!-- 3 of 3 -->
           </div>
         </div>
-      </div>
+    </div>
 
 </body>
 </html>

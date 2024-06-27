@@ -127,7 +127,20 @@ router.delete('/:id/like', async (req, res) => {
 });
 
 // post comment
-
+router.post('/:id/comment', async (req, res) => {
+    try {
+        const comment = {
+            text: req.body.comment,
+            username: req.session.user.username,
+        }
+        await Post.findByIdAndUpdate(req.params.id, {
+            $push: {comments: comment},
+        });
+    } catch (error) {
+        console.log(error);
+    }
+    res.redirect('/posts/' + req.params.id);
+});
 
 
 

@@ -47,7 +47,14 @@ const postSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     }],
-    // comments - embed?
+    comments: [{
+        text: String,
+        username: String,
+        timestamp: {
+            type: Date,
+            default: Date.now,
+        },
+    }],
 });
 
 module.exports = mongoose.model('Post', postSchema);
