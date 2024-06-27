@@ -12,7 +12,7 @@ const ensureLoggedIn = require('./middleware/ensureLoggedIn');
 const passGlobalDataToViews = require('./middleware/passGlobalDataToViews');
 
 const authenticationController = require('./controllers/authentication.js');
-const postsController = require('./controllers/posts')
+const postsController = require('./controllers/posts');
 
 // create server
 const server = express();
