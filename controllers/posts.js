@@ -80,7 +80,7 @@ router.put('/:id', upload.single('image'), async (req, res) => {
         if (post.author.equals(req.session.user._id)) {
             await post.updateOne(req.body);
         }
-        res.redirect('/posts');
+        res.redirect('/');
 
     } catch (error) {
         console.log(error);

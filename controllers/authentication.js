@@ -21,7 +21,7 @@ router.post('/sign-up', async (req, res) => {
     // check passwords match
     if (req.body.password !== req.body.confirmPassword) {
         res.render('authentication/sign-up.ejs', {
-            error: 'Passwords do not match.'
+            error: 'Passwords do not match. Please try again.'
         });
         return;
     }
@@ -48,7 +48,7 @@ router.post('/sign-in', async (req, res) => {
     const user = await User.findOne({username: req.body.username});
 
     if (!user) {
-        res.render('authentication/sign-in.ejs', {
+        res.render('home.ejs', {
             error: 'Username not found.'
         });
         return;
@@ -61,7 +61,7 @@ router.post('/sign-in', async (req, res) => {
     );
 
     if (!validPassword) {
-        res.render('authentication/sign-in.ejs', {
+        res.render('home.ejs', {
             error: 'Invalid Password. Please try again.'
         });
         return;

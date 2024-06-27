@@ -37,11 +37,7 @@
                         <form action="/posts" enctype="multipart/form-data" method="post">
                             <label class="form-label">
                                 Title:
-                                <input name="title" class="form-control" required>
-                            </label>
-                            <label class="form-label">
-                                Description:
-                                <input name="description" class="form-control" required>
+                                <input name="title" class="form-control" maxlength="40" required>
                             </label>
                             <label class="form-label">
                                 Golf Course:
@@ -54,6 +50,10 @@
                             <label class="form-label">
                                 Score:
                                 <input type="number" name="score" class="form-control" required>
+                            </label>
+                            <label class="form-label">
+                                Description:
+                                <textarea name="description" class="form-control" rows="3" required style="min-width: 26rem;"></textarea>
                             </label>
                             <label class="form-label">
                                 Image:
@@ -73,7 +73,7 @@
             <div class="card mb-5">
                 <div class="card-header d-flex align-items-start justify-content-between pb-0 pt-3">
                     <div class="d-flex  flex-column">
-                        <h5><%= post.author.username %> +13.1</h5>
+                        <h5><%= post.author.username %></h5>
                         <p><small><%= post.timestamp.toLocaleDateString('en-GB', {weekday: 'long', day: 'numeric', month: 'long'}) %> at 
                         <%= post.timestamp.toLocaleTimeString('en-GB', {hour: 'numeric', minute: 'numeric', hour12: true}) %></small></p>
                     </div>
@@ -95,7 +95,7 @@
                                     <form action="/posts/<%= post._id %>?_method=PUT" enctype="multipart/form-data" method="post">
                                         <label class="form-label">
                                             Title:
-                                            <input name="title" class="form-control" required value="<%= post.title %>">
+                                            <input name="title" class="form-control" maxlength="40" value="<%= post.title %>">
                                         </label>
                                         <label class="form-label">
                                             Description:
@@ -130,7 +130,7 @@
                 </div>
                 <div class="card-body pb-0 container">
                     <div class="d-flex flex-row justify-content-between">
-                        <h5 class="card-title"><%= post.title %></h5>
+                        <h4 class="card-title"><%= post.title %></h4>
                         <h5>
                             <%= post.score %> (
                                 <% if (post.score > post.par) { %>
@@ -147,7 +147,7 @@
                     <p class="card-text pb-1"><%= post.description %></p>
 
                     
-                    <img src="<%= post.images %>" class="object-fit-contain border rounded img-fluid">
+                    <img src="<%= post.images %>" class="object-fit-contain border rounded img-fluid w-100">
 
 
                     <div class="d-flex flex-row pt-2 gap-2 align-items-baseline justify-content-between">

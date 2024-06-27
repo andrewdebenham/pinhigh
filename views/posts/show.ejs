@@ -23,7 +23,7 @@
             <div class="card mb-5 mt-5">
                 <div class="card-header d-flex align-items-start justify-content-between pb-0 pt-3">
                     <div class="d-flex  flex-column">
-                        <h5><%= post.author.username %> +13.1</h5>
+                        <h5><%= post.author.username %></h5>
                         <p><small><%= post.timestamp.toLocaleDateString('en-GB', {weekday: 'long', day: 'numeric', month: 'long'}) %> at 
                         <%= post.timestamp.toLocaleTimeString('en-GB', {hour: 'numeric', minute: 'numeric', hour12: true}) %></small></p>
                     </div>
@@ -45,7 +45,7 @@
                                     <form action="/posts/<%= post._id %>?_method=PUT" enctype="multipart/form-data" method="post">
                                         <label class="form-label">
                                             Title:
-                                            <input name="title" class="form-control" required value="<%= post.title %>">
+                                            <input name="title" class="form-control" maxlength="40" required value="<%= post.title %>">
                                         </label>
                                         <label class="form-label">
                                             Description:
