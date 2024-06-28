@@ -39,10 +39,6 @@ const postSchema = new mongoose.Schema({
     cloudinaryId: [{
         type: String,
     }],
-    // scorecard: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'Scorecard',
-    // },
     likedByUsers: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

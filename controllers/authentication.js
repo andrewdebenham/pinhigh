@@ -3,10 +3,11 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user.js');
 const router = express.Router();
 
-// configure the router i.e attach routes
+
 router.get('/sign-up', (req, res) => {
     res.render('authentication/sign-up.ejs', {error: ''});
 });
+
 
 router.post('/sign-up', async (req, res) => {
     // check if user exists
@@ -39,9 +40,6 @@ router.post('/sign-up', async (req, res) => {
     res.redirect('/');
 });
 
-router.get('/sign-in', (req, res) => {
-    res.render('authentication/sign-in.ejs', {error: ''});
-});
 
 router.post('/sign-in', async (req, res) => {
     // check if user exists
@@ -74,6 +72,7 @@ router.post('/sign-in', async (req, res) => {
     }
     res.redirect('/');
 });
+
 
 router.get('/sign-out', (req, res) => {
     req.session.destroy();

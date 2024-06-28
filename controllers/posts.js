@@ -142,36 +142,4 @@ router.post('/:id/comment', async (req, res) => {
     res.redirect('/posts/' + req.params.id);
 });
 
-
-
 module.exports = router;
-
-
-
-// create new image (multiple image upload)
-// router.post('/:id/images', upload.array('image', 6), async (req, res) => {
-//     try {
-//         const post = await Post.findById(req.params.id);
-//         const imagesUrls = [];
-//         const cloudinaryIds = [];
-
-//         for (const file of req.files) {
-//             const imageResult = await cloudinary.uploader.upload(file.path);
-//             imagesUrls.push(imageResult.secure_url);
-//             cloudinaryIds.push(imageResult.public_id);
-//         }
-
-//         if (post) {
-//             await Post.findByIdAndUpdate(req.params.id, {
-//                 $push: {
-//                     images: { $each: imagesUrls },
-//                     cloudinaryId: { $each: cloudinaryIds }
-//                 },
-//             });
-//         };
-
-//     } catch (error) {
-//         console.log(error);
-//     }
-//     res.redirect('/posts/' + req.params.id);
-// });
