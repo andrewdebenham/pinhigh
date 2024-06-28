@@ -167,7 +167,7 @@
                                 <p class="card-text pb-1"><%= post.description %></p>
             
                                 
-                                <img src="<%= post.images %>" class="object-fit-contain border rounded img-fluid">
+                                <img src="<%= post.images %>" class="object-fit-contain border rounded img-fluid" alt="image uploaded by <%= post.author.username %>">
             
             
                                 <div class="d-flex flex-row pt-2 gap-2 align-items-baseline justify-content-between">
@@ -255,6 +255,7 @@
     <% } else { %>
         <div class="container w-50 d-flex flex-column align-items-center justify-content-center position-absolute top-50 start-50 translate-middle">
             <h1>Welcome to <%= title %></h1>
+            <h4>A Social Network for all Golfers</h4>
             <p><%= error %></p>
             <form action="/auth/sign-in" method="post" class="border-bottom mb-3">
                 <div class="mb-3">
